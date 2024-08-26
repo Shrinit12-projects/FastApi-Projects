@@ -1,8 +1,16 @@
+#good to know
+    #whenever we create a new folder for python we create a file __init__.py to add all the packages and we leave it empty for now
+
+
+
 from typing import Optional
 from fastapi import FastAPI, Response, status, HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import time
 
 
 app = FastAPI()
@@ -14,12 +22,20 @@ class Post(BaseModel):
     title:str  # i want to fix this variable as string
     content: str 
     published: bool = True #here i have provided with a default value 
-    rating: Optional[int] = None # this is the optional field and the default value for the value null
+    # rating: Optional[int] = None # this is the optional field and the default value for the value null
 
 class UpdatePost(BaseModel):
     title: str
 
-
+while True:
+    try:
+        conn = psycopg2.connect(host='localhost',database = 'fastapi', user= 'postgres',password ='Simba@1805', cursor_factory= RealDictCursor)                             #(host, database, user, password)
+        cursor = conn.cursor()
+        print('the database connection was sucessfull')
+        break
+    except Exception as error:
+        print(f'error:{error}')
+        time.sleep(2)
 
 my_posts= [{"title": "title of post 1", "content":"content of post 1", "id":1},{"title": "title of post 2 ", "content":"content of post 2", "id":2}]
 
@@ -41,7 +57,9 @@ def find_post_index(id: int):
 
 @app.get('/') # routing to the / ebdpoint
 def hello_word():
-    return {'message': my_posts}
+    cursor.execute('SELECT * FROM posts')
+    posts = cursor.fetchall
+    return {'message': posts}
 
 
 @app.delete("/posts/{id}", status_code= status.HTTP_204_NO_CONTENT)
