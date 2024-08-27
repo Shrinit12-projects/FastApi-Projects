@@ -4,29 +4,23 @@
 
 
 from typing import Optional
-from fastapi import FastAPI, Response, status, HTTPException, Depends
+from fastapi import FastAPI, Response, status, HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
-from app import models
-from sqlalchemy.orm import Session
-from .database import engine, get_db
 
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-@app.get("/sqlalchemy")
-def test_posts(db: Session = Depends(get_db)):
-    return {"status":"success"}
+
 
 #######                          this is for validation
 class Post(BaseModel):
     title:str  # i want to fix this variable as string
-    content: str
+    content: str 
     published: bool = True #here i have provided with a default value 
     # rating: Optional[int] = None # this is the optional field and the default value for the value null
 
