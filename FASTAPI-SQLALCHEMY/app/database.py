@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Password123@localhost/postgres" #"postgresql://<username>:<password>@<ip-address>/<hostname>/<database_name>"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Simba%401805@localhost/fastapi" #"postgresql://<username>:<password>@<ip-address>/<hostname>/<database_name>"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL) #engine is what is responsible for sql alchemy to connect to postgres database
 

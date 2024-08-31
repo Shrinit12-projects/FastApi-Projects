@@ -23,3 +23,16 @@ ORM - SQLALCHEMY
     when you create a table in order to update it you have to delete and create again
 
 if you want to update without deleting then you have to create tables using alembic
+
+
+
+
+
+
+
+
+
+
+
+NEED to know
+    Depends in Fast Api
