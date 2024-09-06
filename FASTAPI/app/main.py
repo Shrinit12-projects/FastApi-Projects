@@ -1,26 +1,15 @@
 #good to know
     #whenever we create a new folder for python we create a file __init__.py to add all the packages and we leave it empty for now
-
-
-from ast import mod
-from re import L
-from typing_extensions import deprecated
-from typing import Optional, List
 from fastapi import FastAPI
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
-from app import models, schemas, utils
-from sqlalchemy.orm import Session
-from .database import engine, get_db
-from .routers import post, user, auth
+from app import models
+from .database import engine
+from .routers import post, user, auth, vote
+from .config import settings
+
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-
-
 
 app.include_router(post.router)
 
@@ -28,3 +17,4 @@ app.include_router(user.router)
 
 app.include_router(auth.router)
 
+app.include_router(vote.router)
